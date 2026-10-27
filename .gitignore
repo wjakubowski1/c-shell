@@ -1,0 +1,6 @@
+# ignore executable files for windows
+*.exe
+
+# ignore executable files for linux/macos
+*.out
+*.o
