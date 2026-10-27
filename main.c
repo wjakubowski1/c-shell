@@ -28,7 +28,7 @@ int main() {
       break;
     }
 
-    printf("%s", input);
+    printf("%s\n", input); //the \n still works how supposed to, after strcspn terminates \n index
   }
 
   return 0;
