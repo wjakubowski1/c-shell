@@ -35,10 +35,15 @@ int main() {
       break;
     }
     //convert string to token
-    char* token = strtok(input, " "); // strtok creates tokens separated by space (" ")
+    int is_background = 0; //flag needed for & detection
+    char* token = strtok(input, " "); //strtok creates tokens separated by space (" ")
     int i = 0;
 
     while (token != NULL && i < MAX_ARGS) { //loop untill there are no more tokens or buffer overflows
+      if(strcmp(token, "&") == 0){ //if the token is &, set the is_background flag to = 1, and we break the loop
+        is_background = 1;
+        break; //breaks the loop and & won't be saved into args[i]
+      }
       args[i++] = token; //inserts first token into first position >> goes to next position and prepares empty space
       token = strtok(NULL, " "); //makes strtok look for next token, after the one it just inserted, istead of starting from the beginning
     }
