@@ -45,6 +45,10 @@ int main() {
 
     args[i] = NULL; //null terminate
 
+    if (args[0] == NULL) {
+      continue; // prevent segmentation fault error code after not typeing anything and pressing enter
+    }
+
     //implementing cd into the shell
     if (strcmp(args[0], "cd") == 0) {
       if(args[1] == NULL) { //if the second token is empty, output error msg (ex. "cd  ")
