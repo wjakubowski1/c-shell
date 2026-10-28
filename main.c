@@ -45,6 +45,16 @@ int main() {
 
     args[i] = NULL; //null terminate
 
+    //implementing cd into the shell
+    if (strcmp(args[0], "cd") == 0) {
+      if(args[1] == NULL) { //if the second token is empty, output error msg (ex. "cd  ")
+        perror("cd: missing arguments");
+      } else if(chdir(args[1]) != 0) { //change dir
+          perror("cd failed");
+      }
+      continue;
+    }
+
     //executeing
     pid_t pid = fork(); //clone of the program as a child process >> pid to declare which fork is parent process and child process
     
