@@ -36,6 +36,8 @@ int main() {
     }
     //convert string to token
     int is_background = 0; //flag needed for & detection
+    char* output_file = NULL; //value to preserve file name for >
+
     char* token = strtok(input, " "); //strtok creates tokens separated by space (" ")
     int i = 0;
 
@@ -44,6 +46,14 @@ int main() {
         is_background = 1;
         break; //breaks the loop and & won't be saved into args[i]
       }
+
+      if(strcmp(token, ">") == 0){
+        //if > has been found, the next token has to be the file's name
+        token = strtok(NULL, " "); //recall strtok again to download the file
+        output_file = token; //save the pointer into a file
+        break; //breaks the loop and & won't be saved into args[i]
+      }
+
       args[i++] = token; //inserts first token into first position >> goes to next position and prepares empty space
       token = strtok(NULL, " "); //makes strtok look for next token, after the one it just inserted, istead of starting from the beginning
     }
