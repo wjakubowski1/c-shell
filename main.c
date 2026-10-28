@@ -72,9 +72,12 @@ int main() {
       perror("execvp fail");
       exit(EXIT_FAILURE);
     } else if(pid > 0) { //bigger than 0 means it's the parent process
+        if(is_background == 0) { //parent checks if the process should work in the background
         int status;
         waitpid(pid, &status, 0);
-        printf("Exist status: %d\n", status);
+        } else {
+          printf("(Process running in the background) PID: %d\n", pid); //inform the user about the pid process in the background
+        }
     } else {
       perror("fork has failed");
     }
