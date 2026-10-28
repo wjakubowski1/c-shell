@@ -1,5 +1,10 @@
 #include <stdio.h>
+#include <sys/wait.h>
+#include <stdlib.h>
 #include <string.h>
+#include <sys/types.h>
+#include <unistd.h>
+
 #define MAX_INPUT 1024
 #define MAX_ARGS 64
 
@@ -26,7 +31,7 @@ int main() {
 
     //string compare
     if(strcmp(input, "exit") == 0) {
-      printf("goodbye!");
+      printf("goodbye!\n");
       break;
     }
     //convert string to token
@@ -38,7 +43,23 @@ int main() {
       token = strtok(NULL, " "); //makes strtok look for next token, after the one it just inserted, istead of starting from the beginning
     }
 
-    printf("%s\n", input); //the \n still works how supposed to, after strcspn terminates \n index
+    args[i] = NULL; //null terminate
+
+    //executeing
+    pid_t pid = fork(); //clone of the program as a child process >> pid to declare which fork is parent process and child process
+    
+    if(pid == 0) { //0 means it's the child process
+      execvp(args[0], args); //takes first token as command and then takes all of the arguments
+      perror("execvp fail");
+      exit(EXIT_FAILURE);
+    } else if(pid > 0) { //bigger than 0 means it's the parent process
+        int status;
+        waitpid(pid, &status, 0);
+        printf("Exist status: %d\n", status);
+    } else {
+      perror("fork has failed");
+    }
+
   }
 
   return 0;
