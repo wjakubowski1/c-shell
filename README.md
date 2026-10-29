@@ -9,10 +9,10 @@ A simple custom shell written in C. I am building this project to understand how
 - Built-in cd command (handled before forking to change the parent process directory)
 - Background process execution (appending & to a command allows the shell to continue without waiting)
 - Buffer overflow prevention during tokenization
+- Output and Input redirection (> and <)
 
 ## Next Steps
 
-- Output and Input redirection (> and <)
 - Process piping (|)
 
 ## How to compile and run
