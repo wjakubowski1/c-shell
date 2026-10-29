@@ -4,6 +4,7 @@
 #include <string.h>
 #include <sys/types.h>
 #include <unistd.h>
+#include <fcntl.h>
 
 #define MAX_INPUT 1024
 #define MAX_ARGS 64
@@ -78,6 +79,21 @@ int main() {
     pid_t pid = fork(); //clone of the program as a child process >> pid to declare which fork is parent process and child process
     
     if(pid == 0) { //0 means it's the child process
+      if(output_file != NULL) { //to check flag set during parsing, if not null, then the parser intercepted > symbol and saved the filename
+        int fd = open(output_file, O_WRONLY | O_CREAT | O_TRUNC, 0644); //file descriptor, new file gets assigned number 3 (0, 1, 2 are reserved) >> bitwise flags (O_) >> set permissions
+        if(fd < 0) { //open() from line before returns -1 if it fails
+          perror("failed to open output file");
+          exit(EXIT_FAILURE);
+        }
+
+        //the kernel closes whatever was previously at slot 1, and makes slot 1 point to the text file
+        if(dup2(fd, STDOUT_FILENO) < 0) { //core system call for redirection >> duplicates an existing fd, forcing newfd slot to point at same file as oldfd slot
+          perror("failed to redirect standard output");
+          exit(EXIT_FAILURE);
+        }
+
+        close(fd);
+      }
       execvp(args[0], args); //takes first token as command and then takes all of the arguments
       perror("execvp fail");
       exit(EXIT_FAILURE);
