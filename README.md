@@ -20,4 +20,5 @@ A simple custom shell written in C. I am building this project to understand how
 Use GCC to compile the source code:
 
 gcc main.c -o shell
+
 ./shell
