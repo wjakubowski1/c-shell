@@ -102,7 +102,16 @@ int main() {
       continue;
     }
 
-    // executeing
+    // pipe execution logic
+    if (pipe_index != -1) {
+      int fd[2];
+      if (pipe(fd) == -1) {
+        perror("pipe failed");
+        continue;
+      }
+    }
+
+    // shell execution
     pid_t pid = fork();
     // clone of the program as a child process >> pid to declare
     // which fork is parent process and child process
