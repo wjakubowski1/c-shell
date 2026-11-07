@@ -13,7 +13,7 @@ A simple custom shell written in C. I am building this project to understand how
 
 ## Next Steps
 
-- Process piping (|) (In progress)
+- Process piping (|) 
 
 ## How to compile and run
 
