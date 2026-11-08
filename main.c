@@ -109,7 +109,24 @@ int main() {
         perror("pipe failed");
         continue;
       }
+
+      // 1st Child: left command >> writes to pipe
+      pid_t pid1 = fork();
+      if (pid1 == 0) {
+        dup2(fd[1], STDOUT_FILENO); // reroute standard output to pipe's write end
+        close(fd[0]);               // close unused read end
+        close(fd[1]);               // close original write end
+        
+        execvp(args[0], args);
+        perror("execvp left fail");
+        exit(EXIT_FAILURE);
+      }
+
+
+
+
     }
+
 
     // shell execution
     pid_t pid = fork();
