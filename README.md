@@ -22,3 +22,7 @@ Use GCC to compile the source code:
 `gcc main.c -o shell`
 
 `./shell`
+
+## Execution
+
+![Custom C Shell Execution](1.png) (2.png) (3.png) (4.png)
