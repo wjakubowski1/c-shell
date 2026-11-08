@@ -136,7 +136,14 @@ int main() {
         exit(EXIT_FAILURE);
       }
 
-
+      // parent process: must close both ends so children do not hang waiting for EOF
+      close(fd[0]);
+      close(fd[1]);
+      
+      waitpid(pid1, NULL, 0);
+      waitpid(pid2, NULL, 0);
+      
+      continue; // skip the standard single command execution below
     }
 
 
