@@ -25,10 +25,10 @@ Use GCC to compile the source code:
 
 ## Execution
 
-![Custom C Shell Execution](1.png)
+![Custom C Shell Execution 1](1.png)
 
-(2.png)
+![Custom C Shell Execution 2](2.png)
 
-(3.png)
+![Custom C Shell Execution 3](3.png)
 
-(4.png)
+![Custom C Shell Execution 4](4.png)
