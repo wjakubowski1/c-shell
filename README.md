@@ -10,9 +10,6 @@ A simple custom shell written in C. I am building this project to understand how
 - Background process execution (appending & to a command allows the shell to continue without waiting)
 - Buffer overflow prevention during tokenization
 - Output and Input redirection (> and <)
-
-## Next Steps
-
 - Process piping (|)  (In progress)
 
 ## How to compile and run
