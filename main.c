@@ -104,7 +104,7 @@ int main() {
 
     // pipe execution logic
     if (pipe_index != -1) {
-      int fd[2];
+      int fd[2]; // fd[0] is the read end of the pipe, fd[1] is the write end
       if (pipe(fd) == -1) {
         perror("pipe failed");
         continue;
