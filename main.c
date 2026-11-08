@@ -110,7 +110,7 @@ int main() {
         continue;
       }
 
-      // 1st Child: left command >> writes to pipe
+      // 1st child: left command >> writes to pipe
       pid_t pid1 = fork();
       if (pid1 == 0) {
         dup2(fd[1], STDOUT_FILENO); // reroute standard output to pipe's write end
@@ -122,7 +122,19 @@ int main() {
         exit(EXIT_FAILURE);
       }
 
-
+      // 2nd child: right command >> reads from pipe
+      pid_t pid2 = fork();
+      if (pid2 == 0) {
+        char **args_right = &args[pipe_index]; // pointer to the second command array
+        
+        dup2(fd[0], STDIN_FILENO);  // reroute standard input to pipe's read end
+        close(fd[1]);               // close unused write end
+        close(fd[0]);               // close original read end
+        
+        execvp(args_right[0], args_right);
+        perror("execvp right fail");
+        exit(EXIT_FAILURE);
+      }
 
 
     }
